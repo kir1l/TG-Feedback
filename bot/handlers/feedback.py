@@ -2,6 +2,7 @@
 from aiogram import types, Dispatcher, Bot
 from aiogram import F
 from aiogram.fsm.context import FSMContext
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from bot.states.feedback_states import FeedbackStates
 from bot.keyboards.main_menu import build_main_menu
 from bot.config import ADMIN_IDS
@@ -9,7 +10,9 @@ from bot.config import ADMIN_IDS
 def register_handlers(dp: Dispatcher):
     @dp.callback_query(F.data == "feedback")
     async def callback_feedback(callback: types.CallbackQuery, state: FSMContext):
-        await callback.message.edit_caption(caption="Введите текст обратной связи:", reply_markup=None)
+        await callback.message.edit_caption(caption="Введите текст обратной связи:", reply_markup=InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(text="Назад", callback_data="back_to_menu")]
+        ]))
         await state.set_state(FeedbackStates.waiting_for_feedback)
         await callback.answer()
 
@@ -29,7 +32,9 @@ def register_handlers(dp: Dispatcher):
         reply_kb = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="Ответить", callback_data=f"reply_{user.id}")]
         ])
-        await message.bot.send_message(ADMIN_ID, feedback_message, reply_markup=reply_kb)
+        for admin_id in ADMIN_IDS:
+          await message.bot.send_message(admin_id, feedback_message, reply_markup=reply_kb)
+
         await message.answer("Спасибо за ваш отзыв!", reply_markup=build_main_menu())
         await state.clear()
 
@@ -39,3 +44,7 @@ def register_handlers(dp: Dispatcher):
         main_text = "Добро пожаловать в наш канал! Выберите нужный раздел:"
         await callback.message.edit_caption(caption=main_text, reply_markup=build_main_menu())
         await callback.answer()
+
+    @dp.message()
+    async def unknown_message(message: types.Message):
+        await message.reply("Message not handled", reply_markup=build_main_menu())
