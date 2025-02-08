@@ -196,8 +196,7 @@ Below is a simplified process for deploying on an Ubuntu server.
 
 ## License
 
-This project is distributed under a license of your choice (MIT, Apache, etc.).  
-Include a proper `LICENSE` file in the repository if needed.
+This project is distributed under a MIT license.
 
 **Questions / Suggestions?**  
 Feel free to open an issue and create PR.
