@@ -1,10 +1,10 @@
 # bot/handlers/feedback.py
 from aiogram import types, Dispatcher, Bot
-from aiogram.filters import F
+from aiogram import F
 from aiogram.fsm.context import FSMContext
 from bot.states.feedback_states import FeedbackStates
 from bot.keyboards.main_menu import build_main_menu
-from bot.config import ADMIN_ID
+from bot.config import ADMIN_IDS
 
 def register_handlers(dp: Dispatcher):
     @dp.callback_query(F.data == "feedback")

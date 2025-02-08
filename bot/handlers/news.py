@@ -1,6 +1,6 @@
 # bot/handlers/news.py
 from aiogram import types, Dispatcher
-from aiogram.filters import F
+from aiogram import F
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def register_handlers(dp: Dispatcher):

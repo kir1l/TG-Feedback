@@ -1,6 +1,7 @@
 # bot/handlers/admin.py
 from aiogram import types, Dispatcher
-from aiogram.filters import F, Command
+from aiogram import F
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from bot.states.admin_states import AdminReplyStates
 from bot.states.broadcast_states import BroadcastStates

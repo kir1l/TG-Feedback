@@ -3,7 +3,7 @@ from aiogram import types, Dispatcher
 from aiogram.filters import Command
 from bot.keyboards.main_menu import build_main_menu
 from bot.db import add_subscriber
-from bot.config import ADMIN_ID  # если нужно использовать
+from bot.config import ADMIN_IDS  # если нужно использовать
 
 def register_handlers(dp: Dispatcher):
     @dp.message(Command("start"))
